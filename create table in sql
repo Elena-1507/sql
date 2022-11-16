@@ -1,0 +1,47 @@
+--СОЗДАНИЕ ТАБЛИЦЫ ЖАНРЫ
+CREATE TABLE IF NOT EXISTS ganre (
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(40) NOT NULL
+);
+--СОЗДАНИЕ ТАБЛИЦЫ ИСПОЛНИТЕЛИ
+CREATE TABLE IF NOT EXISTS acter (
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(40) NOT NULL
+);
+-- ОТНОШЕНИЯ МНОГИЕ КО МНОГИМ ЖАНРЫ ИСПОЛНИТЕЛИ
+CREATE TABLE IF NOT EXISTS ganreacter (
+	ganre_id INTEGER REFERENCES ganre(id),
+	acter_id INTEGER REFERENCES acter(id),
+	CONSTRAINT pk PRIMARY KEY (ganre_id, acter_id)
+);
+--СОЗДАНИЕ ТАБЛИЦЫ АЛЬБОМЫ
+CREATE TABLE IF NOT EXISTS albom (
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(40) NOT NULL,
+	year INTEGER NOT NULL
+);
+-- ОТНОШЕНИЯ МНОГИЕ КО МНОГИМ АЛЬБОМ ИСПОЛНИТЕЛЬ
+CREATE TABLE IF NOT EXISTS albomacter (
+	albom_id INTEGER REFERENCES albom(id),
+	acter_id INTEGER REFERENCES acter(id),
+	CONSTRAINT aa PRIMARY KEY (albom_id, acter_id)
+);
+--СОЗДАНИЕ ТАБЛИЦЫ ТРЕК И ОТНОШЕНИЯ ОДИН ТРЕК К ОДНОМУ СБОРНИКУ
+CREATE TABLE IF NOT EXISTS treck (
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(40) NOT NULL,
+	timetrack INTEGER NOT NULL,
+	albom_id INTEGER REFERENCES albom(id)
+);
+--СОЗДАНИЕ ТАБЛИЦЫ СБОРНИК
+CREATE TABLE IF NOT EXISTS collection (
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(40) NOT NULL,
+	year INTEGER NOT NULL
+);
+-- ОТНОШЕНИЯ МНОГИЕ КО МНОГИМ ТРЕК И СБОРНИК
+CREATE TABLE IF NOT EXISTS treckcollection (
+	treck_id INTEGER REFERENCES treck(id),
+	collection_id INTEGER REFERENCES collection(id),
+	CONSTRAINT tc PRIMARY KEY (treck_id, collection_id)
+)
