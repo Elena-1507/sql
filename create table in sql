@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS albomacter (
 CREATE TABLE IF NOT EXISTS treck (
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(40) NOT NULL,
-	timetrack INTEGER NOT NULL,
+	timetrack TIME NOT NULL,
 	albom_id INTEGER REFERENCES albom(id)
 );
 --СОЗДАНИЕ ТАБЛИЦЫ СБОРНИК
